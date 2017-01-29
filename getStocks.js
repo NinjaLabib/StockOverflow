@@ -6,9 +6,15 @@ var googleFinance = require('google-finance');
 var _ = require('lodash');
 var app     = express();
 var port_number =(process.env.PORT || 8081);
+app.all('*', function(req, res, next) {
+     var origin = req.get('origin');
+     res.header('Access-Control-Allow-Origin', origin);
+     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+     res.header('Access-Control-Allow-Headers', 'Content-Type');
+     next();
+});
 
 app.get('/getData', function(req, res){
-
   console.log(req.query.from);
   console.log(req.query.to);
   console.log(req.query.ticker);
