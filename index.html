@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arsenal">
     </head>
     <style> /* set the CSS */
+    
     h1 {text-align: center;
         color: white;
         font: 40px Helvetica;
@@ -47,7 +48,7 @@
     #answer {
     visibility: hidden;
     position:relative;
-       bottom:800px; z-index: -1;
+       bottom:600px; z-index: -1;
     }
 
     #area2 .g {
@@ -57,10 +58,14 @@
         text-align: center;
         color: white;
         font: 20px Helvetica;
-    }   
+    }
+    #news {
+    height: 600px;
+    overflow: scroll;
+    }
     </style>
     <body> 
-    <div style="background-color:#89A3A7">
+    <div style="background-color:#DDE4E8">
     <header>
         
         <h1><div style="font-family: 'Arsenal', serif; color:#011724" ><b>Complete the Stock Graph! </b></div></h1>
@@ -76,7 +81,7 @@
     Start: <input type="text" name="start" id="start" value="2012-08-10"
     style="width: 80px;">
     &nbsp &nbsp
-    Start: <input type="text" name="middle" id="middle" value="2013-08-10"
+    Mid-Point: <input type="text" name="middle" id="middle" value="2013-08-10"
     style="width: 80px;">
     &nbsp &nbsp
     End: <input type="text" name="end" id="end" value="2014-08-10" 
@@ -102,13 +107,12 @@
 
 <div class="row">
 
-            <div class="col-md-2" ></div>
-    <div class="col-md-4" id="area1"></div>
+       <div class="col-md-4" id="area1"></div> 
     <div class="col-md-4" id ="fitin">
         <div id = "area2"></div>
         <div id="answer"></div>
     </div>
-            <div class="col-md-2" ></div>
+    <div class="col-md-4" id="news" ></div>
 
 </div>
 <!-- load the d3.js library -->    
@@ -119,7 +123,7 @@ var start = document.getElementById('start').value;
 var end = document.getElementById('end').value;
 var globalData  = null;
 var globalPoints = null;
-var globalY = 800;
+var globalY = 600;
 var globalX = (window.innerWidth/3)+50;
 var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="
 +stock+"&from="+start+"&to="+end;
@@ -132,6 +136,7 @@ $(function(){
         firstHalf(true, ymin,ymax);
         linePlot();
         showResults(true, ymin,ymax);
+         getNews(start,end,stock);
     })
 });
 function updateData(){
@@ -149,10 +154,39 @@ $(function(){
         var ymax = +data.max;
         firstHalf(false, ymin,ymax);
         showResults(false, ymin,ymax);
+         getNews(start,end,stock);
     })
 });
 }
+function getNews(start,end,stock){
+    var startY = (new Date(start)).getFullYear();
+     var startM = (new Date(start)).getMonth()+1;
+     if(startM < 10){
+         startM = "0"+startM;
+     }
+     var startStr = startY+""+startM;
+     console.log(startStr);
+          var endY = (new Date(end)).getFullYear();
+     var endM = (new Date(end)).getMonth()+1;
+     if(endM < 10){
+         endM = "0"+endM;
+     }
+     var endStr = endY+""+endM;
+    var newsURI = "https://floating-retreat-69743.herokuapp.com/getNews?start="+startStr+"&end="+endStr+"&company="+stock;
+    document.getElementById("news").innerHTML = "";
+     $.getJSON(newsURI, function(data) {
+         console.log(data);
+         for(day in data){
+            console.log(data[day]);
+            var str = '<div class="card"> <div class="card-block"> <h4 class="card-title">'+data[day].headline.main +'</h4>'
+    +'<h6 class="card-subtitle mb-2 text-muted">'+data[day].pub_date+'</h6>'
+    +'<p class="card-text">'+data[day].snippet+'</p>'+
+    '<a href="'+data[day].web_url+'" class="card-link">News Link</a> </div></div>'
+            document.getElementById("news").innerHTML+= str;
+         }
 
+    })
+}
 function results(){
      var showme = document.getElementById("answer");
      if(showme.style.visibility == "visible"){
