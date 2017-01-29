@@ -1,0 +1,27 @@
+{
+  "name": "stockoverflow",
+  "version": "1.0.0",
+  "main": "getStocks.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gonzalezelias10/StockOverflow.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gonzalezelias10/StockOverflow/issues"
+  },
+  "homepage": "https://github.com/gonzalezelias10/StockOverflow#readme",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "express": "^4.14.1",
+    "google-finance": "^0.1.9",
+    "lodash": "^4.17.4",
+    "request": "^2.79.0"
+  },
+  "devDependencies": {},
+  "description": ""
+}
