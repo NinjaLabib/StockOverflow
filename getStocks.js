@@ -5,7 +5,7 @@ var cheerio = require('cheerio');
 var googleFinance = require('google-finance');
 var _ = require('lodash');
 var app     = express();
-var port_number = server.listen(process.env.PORT || 8081);
+var port_number =(process.env.PORT || 8081);
 
 app.get('/getData', function(req, res){
 
