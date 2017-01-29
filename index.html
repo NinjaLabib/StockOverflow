@@ -182,6 +182,7 @@ var inputURL = "https://query.yahooapis.com/v1/public/yql"+
         .style("font-size", "16px")
         .text(stock);
         
+<<<<<<< HEAD
     svg.append("text")          // Add the title
         .attr("class", "stock")
         .attr("x", (width / 2))
@@ -207,6 +208,21 @@ var inputURL = "https://query.yahooapis.com/v1/public/yql"+
     +"datatables.org%2Falltableswithkeys";
     // Get the data again
     d3.json(inputURL, function(error, data){
+=======
+ //   var randomCompany = fortunefive[Math.floor(Math.random() * 500)];
+    
+    var inputURL = "https://query.yahooapis.com/v1/public/yql"+
+        "?q=select%20*%20from%20yahoo.finance.historicaldata%20"+
+        "where%20symbol%20%3D%20%22"
+        +stock+"%22%20and%20startDate%20%3D%20%22"
+        +start+"%22%20and%20endDate%20%3D%20%22"
+        +end+"%22&format=json&env=store%3A%2F%2F"
+        +"datatables.org%2Falltableswithkeys";
+    
+        // Get the data 
+        d3.json(inputURL, function(error, data){
+    
+>>>>>>> origin/master
         data.query.results.quote.forEach(function(d) {
             d.date = parseDate(d.Date);
             d.high = +d.High;
