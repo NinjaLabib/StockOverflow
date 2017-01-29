@@ -5,16 +5,19 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */
+@import url('https://fonts.googleapis.com/css?family=Arsenal');
+
 html {
-  font-family: sans-serif;
+  font-family: 'Arsenal',serif;
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  overflow: hidden;
 }
 
 body {
   margin: 0;
-  
+  overflow: visible;
 }
 
 article,
@@ -185,8 +188,8 @@ button,
 input,
 optgroup,
 select,
-textarea {
-  font-family: sans-serif;
+textarea {  
+  font-family: 'Arsenal',serif;
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
@@ -386,14 +389,12 @@ html {
 }
 
 body {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Arsenal',serif;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.5;
   color: #292b2c;
-  background-image: url("../img/stock-market-chart.jpg");
-   background-size: 100% 100%;
-    background-repeat: no-repeat;
+  background-color: #DDE4E8;
 }
 
 [tabindex="-1"]:focus {
