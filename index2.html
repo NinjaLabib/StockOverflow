@@ -86,13 +86,12 @@ text.shadow {
 
 <div class="row">
 
-            <div class="col-md-2" ></div>
-    <div class="col-md-4" id="area1"></div>
+    <div class="col-md-4" id="area1"></div> 
     <div class="col-md-4" id ="fitin">
         <div id = "area2"></div>
         <div id="answer"></div>
     </div>
-            <div class="col-md-2" ></div>
+    <div class="col-md-4" id="news" ></div>
 
 </div>
 <!-- load the d3.js library -->    
@@ -113,11 +112,42 @@ $(function(){
         globalData = data;
         var ymin = +data.min;
         var ymax = +data.max;
+        
         firstHalf(true, ymin,ymax);
         linePlot();
         showResults(true, ymin,ymax);
+                getNews(start,end,stock);
     })
 });
+function getNews(start,end,stock){
+    var startY = (new Date(start)).getFullYear();
+     var startM = (new Date(start)).getMonth()+1;
+     if(startM < 10){
+         startM = "0"+startM;
+     }
+     var startStr = startY+""+startM;
+     console.log(startStr);
+          var endY = (new Date(end)).getFullYear();
+     var endM = (new Date(end)).getMonth()+1;
+     if(endM < 10){
+         endM = "0"+endM;
+     }
+     var endStr = endY+""+endM;
+    var newsURI = "https://floating-retreat-69743.herokuapp.com/getNews?start="+startStr+"&end="+endStr+"&company="+stock;
+    document.getElementById("news").innerHTML = "";
+     $.getJSON(newsURI, function(data) {
+         console.log(data);
+         for(day in data){
+            console.log(data[day]);
+            var str = '<div class="card"> <div class="card-block"> <h4 class="card-title">'+data[day].headline.main +'</h4>'
+    +'<h6 class="card-subtitle mb-2 text-muted">'+data[day].pub_date+'</h6>'
+    +'<p class="card-text">'+data[day].snippet+'</p>'+
+    '<a href="'+data[day].web_url+'" class="card-link">News Link</a> </div></div>'
+            document.getElementById("news").innerHTML+= str;
+         }
+
+    })
+}
 function updateData(){
 var stock = document.getElementById('stock').value;
 var start = document.getElementById('start').value;
@@ -133,6 +163,7 @@ $(function(){
         var ymax = +data.max;
         firstHalf(false, ymin,ymax);
         showResults(false, ymin,ymax);
+                        getNews(start,end,stock);
     })
 });
 }
