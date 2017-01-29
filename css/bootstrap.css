@@ -391,9 +391,7 @@ body {
   font-weight: normal;
   line-height: 1.5;
   color: #292b2c;
-  background-image: url("../img/stock-market-chart.jpg");
-   background-size: 100% 100%;
-    background-repeat: no-repeat;
+  background-color: #DDE4E8;
 }
 
 [tabindex="-1"]:focus {
