@@ -135,6 +135,7 @@ app.get('/getBounds', function(req, res){
 function filterNews(options, callback) {
   request(options,
     function(err, res3, body) {
+      console.log(body);
       clean = JSON.parse(body);
       callback(err, JSON.parse(body));
     }
@@ -154,7 +155,6 @@ function numDays(month, year){
   }
   return 30;
 }
-
 app.get('/getNews', function(req, res){
   startYear = parseInt(req.query.start.substring(0,4));
   startMonth = parseInt(req.query.start.substring(4,6));
@@ -164,19 +164,15 @@ app.get('/getNews', function(req, res){
   company = req.query.company;
 
   options = [];
-  for(n = 0; n < monthsNum; n++){
-    currentMonth = startMonth + n;
-    currentYear = startYear;
-    if(currentMonth > 12) {
-      addedYears = currentMonth % 12;
-      currentYear = currentYear + addedYears;
-      currentMonth = currentMonth - 12*addedYears;
+
+    if(startMonth < 10){
+      startMonth = "0" + startMonth;
     }
-    if(currentMonth < 10){
-      currentMonth = "0"+currentMonth;
+    if(endMonth < 10){
+      endMonth = "0" + endMonth;
     }
-    begin =  parseInt(""+currentYear+""+currentMonth+"01");
-    end = parseInt(""+currentYear+""+currentMonth+""+numDays(currentMonth,currentYear));
+    begin =  parseInt(""+startYear+""+startMonth+"01");
+    end = parseInt(""+endYear+""+endMonth+"01");
 
     req = {
         url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
@@ -185,50 +181,118 @@ app.get('/getNews', function(req, res){
           'q': company,
           'begin_date':begin,
           'end_date': end,
+          'fl': "web_url,snippet,lead_paragraph,pub_date",
           'page':1,
           'fq': "document_type:article",
           'facet_filter': "true"
         }
       }
-      // req = {
-      //     url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
-      //     qs: {
-      //       'api-key': "b572113326ca44698852b86b199fe673",
-      //       'q': 'GOOGLE',
-      //       'begin_date': "20150201",
-      //       'end_date': "20150401",
-      //       'page':1,
-      //       'facet_filter': "true"
-      //
-      //     }
-      //   }
     options = _.concat(options,req);
 
 
-  }
+
   async.map(options, filterNews, function (err, results){
     if (err) return console.log(err);
-    for(j = 0; j < results.length;j++){
-      clean = results[j];
+    articlePerMonth = {};
+    size = 0;
+      clean = results[0];
 
       clean = clean.response;
       if(clean){
         clean = clean.docs;
-        clean = clean[0];
-        dateUnparsed = ""+clean.pub_date;
-        dateSplit = dateUnparsed.substring(0,10);
-        clean = {
-          url: clean.web_url,
-          snip: clean.snippet,
-          lead_para: clean.lead_paragraph,
-          date: dateSplit
-        }
-        console.log(clean);
-        results[j] = clean;
+        for(j = 0; j < clean.length;j++){
+          art = clean[j];
+          dateUnparsed = ""+art.pub_date;
+          dateSplit = dateUnparsed.substring(0,10);
+          dateParts = dateSplit.split("-");
+          yearMonth = dateParts[0]+dateParts[1];
+          if(!_.find(articlePerMonth, yearMonth)){
+            articlePerMonth[yearMonth] = art;
+            size++;
+          }
+          if(size >= monthsNum){
+            j = results.length;
+          }
+
       }
     }
-    res.send(results);
+    res.send(articlePerMonth);
   });
+// app.get('/getNews', function(req, res){
+//   startYear = parseInt(req.query.start.substring(0,4));
+//   startMonth = parseInt(req.query.start.substring(4,6));
+//   endYear = parseInt(req.query.end.substring(0,4));
+//   endMonth = parseInt(req.query.end.substring(4,6));
+//   monthsNum = (endYear - startYear)*12 + endMonth - startMonth;
+//   company = req.query.company;
+//
+//   options = [];
+//   for(n = 0; n < monthsNum; n++){
+//     currentMonth = startMonth + n;
+//     currentYear = startYear;
+//     if(currentMonth > 12) {
+//       addedYears = currentMonth % 12;
+//       currentYear = currentYear + addedYears;
+//       currentMonth = currentMonth - 12*addedYears;
+//     }
+//     if(currentMonth < 10){
+//       currentMonth = "0"+currentMonth;
+//     }
+//     begin =  parseInt(""+currentYear+""+currentMonth+"01");
+//     end = parseInt(""+currentYear+""+currentMonth+""+numDays(currentMonth,currentYear));
+//
+//     req = {
+//         url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
+//         qs: {
+//           'api-key': "b572113326ca44698852b86b199fe673",
+//           'q': company,
+//           'begin_date':begin,
+//           'end_date': end,
+//           'fl': "web_url,snippet,lead_paragraph,pub_date",
+//           'page':1,
+//           'fq': "document_type:article",
+//           'facet_filter': "true"
+//         }
+//       }
+//       // req = {
+//       //     url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
+//       //     qs: {
+//       //       'api-key': "b572113326ca44698852b86b199fe673",
+//       //       'q': 'GOOGLE',
+//       //       'begin_date': "20150201",
+//       //       'end_date': "20150401",
+//       //       'page':1,
+//       //       'facet_filter': "true"
+//       //
+//       //     }
+//       //   }
+//     options = _.concat(options,req);
+//
+//
+//   }
+//   async.map(options, filterNews, function (err, results){
+//     if (err) return console.log(err);
+//     for(j = 0; j < results.length;j++){
+//       clean = results[j];
+//
+//       clean = clean.response;
+//       if(clean){
+//         clean = clean.docs;
+//         clean = clean[0];
+//         dateUnparsed = ""+clean.pub_date;
+//         dateSplit = dateUnparsed.substring(0,10);
+//         clean = {
+//           url: clean.web_url,
+//           snip: clean.snippet,
+//           lead_para: clean.lead_paragraph,
+//           date: dateSplit
+//         }
+//         console.log(clean);
+//         results[j] = clean;
+//       }
+//     }
+//     res.send(results);
+//   });
 
 //   var filterNews = function(n, callback) {
 //     currentMonth = startMonth + n;
