@@ -63,6 +63,10 @@
     height: 500px;
     overflow-y: scroll;
     }
+    input[type=text] {
+    background-color: black;
+    color: white;
+}
     </style>
     <body> 
     <div style="background-image: url('img/djTick.jpg')">
@@ -78,7 +82,7 @@
     Stock: <input type="text" name="stock" id="stock" value="IBM" 
     style="width: 70px;">
     &nbsp &nbsp
-    Start: <input type="text" name="start" id="start" value="2012-08-10"
+    Start: <input type="text" name="start" id="start" value="2012-08-10" 
     style="width: 80px;">
     &nbsp &nbsp
     Mid-Point: <input type="text" name="middle" id="middle" value="2013-08-10"
@@ -89,13 +93,13 @@
     &nbsp &nbsp
     <input name="updateButton" 
     type="button"
-    class="btn btn-outline-primary"
+    class="btn btn-primary"
     value="Update" 
     onclick="updateData()" />
         &nbsp &nbsp
     <input name="resultsButton" 
     type="button"
-    class="btn btn-outline-primary"
+    class="btn btn-success"
     value="Results" 
     onclick="results()" />
 
