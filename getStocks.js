@@ -16,7 +16,8 @@ app.get('/getData', function(req, res){
   fromR = req.query.from;
   toR = req.query.to;
   tickerR = req.query.ticker;
-
+  max = -1;
+  min = -1;
   googleFinance.historical({
     symbol:tickerR,//+req.ticker
     from: fromR, //req.from
@@ -31,22 +32,29 @@ app.get('/getData', function(req, res){
       for(i = 0; i < quotes.length; i++){
         dateUnparsed = ""+quotes[i].date;
         dateSplit = dateUnparsed.split(" ");
-        dateParsed = "" + _.get(months, dateSplit[1]) + "_"
-          + dateSplit[2] + "_" + dateSplit[3];
+        dateParsed = "" + _.get(months, dateSplit[1]) + "-"
+          + dateSplit[2] + "-" + dateSplit[3];
+
 
         close = quotes[i].close;
-        x = _.concat(x,dateParsed);
-        y = _.concat(y,close);
+        refined = {
+          x: dateParsed,
+          y: close
+        };
+        quotes[i] = refined;
+
+        // x = _.concat(x,dateParsed);
+        // y = _.concat(y,close);
 
       }
 
-      res.send({
-        x:x,
-        y:y,
-        high: Math.max.apply(Math,y),
-        low: Math.min.apply(Math,y)
-      });
-      //res.send(quotes);
+      // res.send({
+      //   // x:x,
+      //   // y:y,
+      //   high: Math.max.apply(Math,y),
+      //   low: Math.min.apply(Math,y)
+      // });
+      res.send(quotes);
 
   });
 
