@@ -47,7 +47,7 @@ text.shadow {
 #answer {
     visibility: hidden;
     position:relative;
-       bottom:800px; z-index: -1;
+       bottom:801px; z-index: -1;
 }
 
 #area2 .g {
@@ -83,13 +83,17 @@ text.shadow {
     onclick="results()" />
 </div>
 <h2><div id="score">Score: 0</div></h2>
+
 <div class="row">
-    <div class="col-md-3" id="area1"></div>
-    <div class="col-md-3" id ="fitin">
+
+            <div class="col-md-2" ></div>
+    <div class="col-md-4" id="area1"></div>
+    <div class="col-md-4" id ="fitin">
         <div id = "area2"></div>
         <div id="answer"></div>
     </div>
-        <div class="col-md-6" ></div>
+            <div class="col-md-2" ></div>
+
 </div>
 <!-- load the d3.js library -->    
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -100,6 +104,7 @@ var end = document.getElementById('end').value;
 var globalData  = null;
 var globalPoints = null;
 var globalY = 800;
+var globalX = (window.innerWidth/3)+50;
 var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="
 +stock+"&from="+start+"&to="+end;
 
@@ -179,7 +184,7 @@ function results(){
 function firstHalf(init, ymin,ymax){
 // Set the dimensions of the graph
 var margin = {top: 30, right: 40, bottom: 30, left: 50},
-    width = 500 - margin.left - margin.right,
+    width = globalX - margin.left - margin.right,
     height = globalY - margin.top - margin.bottom;
 // Parse the date / time
 var parseDate = d3.time.format("%Y-%m-%d").parse;
@@ -336,7 +341,7 @@ var inputURL = "http://query.yahooapis.com/v1/public/yql"+
 }
 }
 function linePlot(){
-    var width = 500;
+    var width = globalX;
     var height = globalY;
     var radius = 4;
     var padding = radius ;//radius * 6;
@@ -400,7 +405,7 @@ function linePlot(){
 function showResults(init, ymin,ymax){
 // Set the dimensions of the graph
 var margin = {top: 28, right: 40, bottom: 30, left: 40},
-    width = 500 - margin.left - margin.right,
+    width = globalX - margin.left - margin.right,
     height = globalY - margin.top - margin.bottom;
 // Parse the date / time
 var parseDate = d3.time.format("%Y-%m-%d").parse;
