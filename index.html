@@ -104,8 +104,7 @@ var end = document.getElementById('end').value;
 var globalData  = null;
 var globalPoints = null;
 var globalY = 800;
-var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="
-+stock+"&from="+start+"&to="+end;
+var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="+stock+"&from="+start+"&to="+end;
 
 $(function(){
     $.getJSON(bounds, function(data) {
@@ -115,15 +114,14 @@ $(function(){
         firstHalf(true, ymin,ymax);
         linePlot();
         showResults(true, ymin,ymax);
-    })
+    });
 });
 function updateData(){
 var stock = document.getElementById('stock').value;
 var start = document.getElementById('start').value;
 var end = document.getElementById('end').value;
 
-var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="
-+stock+"&from="+start+"&to="+end;
+var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="+stock+"&from="+start+"&to="+end;
 
 $(function(){
     $.getJSON(bounds, function(data) {
@@ -132,7 +130,7 @@ $(function(){
         var ymax = +data.max;
         firstHalf(false, ymin,ymax);
         showResults(false, ymin,ymax);
-    })
+    });
 });
 }
 
@@ -146,7 +144,7 @@ function results(){
     var minXpoint = globalPoints[0].x;
     var maxXpoint = globalPoints[globalPoints.length-1].x;
     var startDate = new Date(globalData.quotes[Math.floor(globalData.quotes.length/2)].x);
-    console.log(startDate)
+    console.log(startDate);
     startDate = startDate.getTime();
     var endDate = new Date(globalData.quotes[globalData.quotes.length-1].x);
     endDate = endDate.getTime();
@@ -207,9 +205,7 @@ var svg = d3.select("#area1")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
-        .attr("transform", "translate(" 
-            + margin.left 
-            + "," + margin.top + ")");
+        .attr("transform", "translate("+ margin.left+ "," + margin.top + ")");
 
 var stock = document.getElementById('stock').value;
 var start = document.getElementById('start').value;
@@ -231,7 +227,7 @@ var inputURL = "https://query.yahooapis.com/v1/public/yql"+
         d.high = +d.High;
         d.low = +d.Low;
     });
-    console.log(data.query.results.quote)
+    console.log(data.query.results.quote);
 
     // Scale the range of the data
     x.domain(d3.extent(data.query.results.quote, function(d) {
@@ -363,7 +359,7 @@ function linePlot(){
       return {
         x: spread(d),
         y: Math.floor(Math.random() * (height - 2*padding) + padding)
-      }
+      };
     });
     globalPoints = points;
     var circles = svg2
@@ -390,7 +386,7 @@ function linePlot(){
     function dragHandler() {
       var m = d3.mouse(this);
       var x = m[0];
-      var y = Math.max(padding, Math.min(m[1], height - padding))
+      var y = Math.max(padding, Math.min(m[1], height - padding));
       var range = spread.range();
       var space = spread.rangeBand() / 2;
       for (var i = 0; x > (range[i] + space); i++) {}
@@ -415,7 +411,7 @@ var y = d3.scale.linear().range([height, 0]);
 var xAxis = d3.svg.axis().scale(x)
     .orient("bottom").ticks(6);
 
-var    yAxis = d3.svg.axis().scale(y)
+var yAxis = d3.svg.axis().scale(y)
     .orient("left").ticks(10);
 
 var valueline = d3.svg.line()
