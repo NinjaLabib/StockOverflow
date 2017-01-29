@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arsenal">
     </head>
     <style> /* set the CSS */
+    
     h1 {text-align: center;
         color: white;
         font: 40px Helvetica;
@@ -47,7 +48,7 @@
     #answer {
     visibility: hidden;
     position:relative;
-       bottom:800px; z-index: -1;
+       bottom:600px; z-index: -1;
     }
 
     #area2 .g {
@@ -57,7 +58,11 @@
         text-align: center;
         color: white;
         font: 20px Helvetica;
-    }   
+    }
+    #news {
+    height: 600px;
+    overflow: scroll;
+    }
     </style>
     <body> 
     <div style="background-color:#DDE4E8">
@@ -118,7 +123,7 @@ var start = document.getElementById('start').value;
 var end = document.getElementById('end').value;
 var globalData  = null;
 var globalPoints = null;
-var globalY = 800;
+var globalY = 600;
 var globalX = (window.innerWidth/3)+50;
 var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="
 +stock+"&from="+start+"&to="+end;
