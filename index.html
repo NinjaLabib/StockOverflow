@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
     <![endif]-->
     <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Arsenal">
     </head>
     <style> /* set the CSS */
     h1 {text-align: center;
@@ -61,14 +62,14 @@
     <body>
     <header>
         
-        <h1>Complete the Stock graph! </h1>
+        <h1><div style="font-family: 'Arsenal', serif;">Complete the Stock graph! </div></h1>
     </header>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 <!-- set inputs for the query -->    
-<div id="new_input" class="form-control form-control-success text-center">
+<div id="new_input" class="text-center">
     &nbsp &nbsp
-    Stock: <input type="text" name="stock" id="stock" value="IBM" 
+    Stock: <input type="text" name="stock" id="stock" value="IBM" class="form-control form-control-success"
     style="width: 70px;">
     &nbsp &nbsp
     Start: <input type="text" name="start" id="start" value="2012-08-10"
@@ -91,9 +92,12 @@
     class="btn btn-outline-primary"
     value="Results" 
     onclick="results()" />
+<<<<<<< HEAD
     <h2><div id="score" class="form-control form-control-success text-center">Score: 0</div></h2>
+=======
+>>>>>>> origin/master
 </div>
-
+<h2><div id="score" class="text-center">Score: 0</div></h2>
 
 <div class="row">
 
