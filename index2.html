@@ -47,7 +47,11 @@ text.shadow {
 #answer {
     visibility: hidden;
     position:relative;
-       bottom:600px; z-index: -1;
+       bottom:800px; z-index: -1;
+}
+
+#area2 .g {
+        border-style: dotted solid;
 }
 </style>
 <body>
@@ -81,13 +85,11 @@ text.shadow {
 <h2><div id="score">Score: 0</div></h2>
 <div class="row">
     <div class="col-md-3" id="area1"></div>
-    <div class="col-md-3">
+    <div class="col-md-3" id ="fitin">
         <div id = "area2"></div>
         <div id="answer"></div>
     </div>
-        <div class="col-md-3" ></div>
-                <div class="col-md-3" ></div>
-
+        <div class="col-md-6" ></div>
 </div>
 <!-- load the d3.js library -->    
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -97,7 +99,7 @@ var start = document.getElementById('start').value;
 var end = document.getElementById('end').value;
 var globalData  = null;
 var globalPoints = null;
-var globalY = 600;
+var globalY = 800;
 var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="
 +stock+"&from="+start+"&to="+end;
 
