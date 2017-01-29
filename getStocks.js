@@ -102,7 +102,7 @@ app.get('/getBounds', function(req, res){
         if (close > max) {
           max = close;
         }
-        if (close < max) {
+        if (close < min) {
           min = close;
         }
         refined = {
@@ -126,6 +126,58 @@ app.get('/getBounds', function(req, res){
 
 })
 
+// app.get('/getNews', function(req, res){
+//
+//   fromR = req.query.from;
+//   toR = req.query.to;
+//   tickerR = req.query.;
+//   max = -1;
+//   min = -1;
+//   googleFinance.historical({
+//     symbol:tickerR,//+req.ticker
+//     from: fromR, //req.from
+//     to: toR //req.to
+//   }, function (err, quotes) {
+//       console.log(""+quotes[2].date);
+//       months = {'Jan':1, 'Feb':2, 'Mar': 3, 'Apr': 4,
+//       'May':5, 'Jun':6, 'Jul':7, 'Aug':8, 'Sep':9,'Oct':10,
+//       'Nov':11, 'Dec':12};
+//       x = [];
+//       y = [];
+//       max = -1;
+//       min = Number.MAX_SAFE_INTEGER;
+//       for(i = 0; i < quotes.length; i++){
+//         dateUnparsed = ""+quotes[i].date;
+//         dateSplit = dateUnparsed.split(" ");
+//         dateParsed = "" + _.get(months, dateSplit[1]) + "-"
+//           + dateSplit[2] + "-" + dateSplit[3];
+//         close = quotes[i].close;
+//         if (close > max) {
+//           max = close;
+//         }
+//         if (close < min) {
+//           min = close;
+//         }
+//         refined = {
+//           x: dateParsed,
+//           y: close
+//         };
+//         quotes[i] = refined;
+//
+//         // x = _.concat(x,dateParsed);
+//         // y = _.concat(y,close);
+//
+//       }
+//
+//
+//       res.send({
+//         max: max,
+//         min:min
+//       });
+//
+//   });
+//
+// })
 
 
 app.listen(port_number);
