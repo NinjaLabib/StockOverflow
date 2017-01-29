@@ -181,7 +181,7 @@ app.get('/getNews', function(req, res){
           'q': company,
           'begin_date':begin,
           'end_date': end,
-          'fl': "web_url,snippet,lead_paragraph,pub_date",
+          'fl': "web_url,snippet,lead_paragraph,pub_date,headline",
           'page':1,
           'fq': "document_type:article",
           'facet_filter': "true"
