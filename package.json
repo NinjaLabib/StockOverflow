@@ -22,8 +22,10 @@
     "cheerio": "^0.22.0",
     "express": "^4.14.1",
     "google-finance": "^0.1.9",
+    "jQuery": "^1.7.4",
     "lodash": "^4.17.4",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "xhr2": "^0.1.4"
   },
   "devDependencies": {},
   "description": ""

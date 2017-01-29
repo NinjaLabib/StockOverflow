@@ -5,7 +5,9 @@ var cheerio = require('cheerio');
 var googleFinance = require('google-finance');
 var _ = require('lodash');
 var async = require('async');
-var await = require('await')
+var await = require('await');
+var XMLHttpRequest = require('xhr2');
+
  app     = express();
 const months = {'Jan':1, 'Feb':2, 'Mar': 3, 'Apr': 4,
  'May':5, 'Jun':6, 'Jul':7, 'Aug':8, 'Sep':9,'Oct':10,
@@ -135,7 +137,6 @@ app.get('/getBounds', function(req, res){
 function filterNews(options, callback) {
   request(options,
     function(err, res3, body) {
-      console.log(body);
       clean = JSON.parse(body);
       callback(err, JSON.parse(body));
     }
@@ -173,12 +174,22 @@ app.get('/getNews', function(req, res){
     }
     begin =  parseInt(""+startYear+""+startMonth+"01");
     end = parseInt(""+endYear+""+endMonth+"01");
+    url = "http://d.yimg.com/aq/autoc?query="+company+"&region=US&lang=en-US&callback=YAHOO.util.ScriptNodeDataSource.callbacks"
+    request({
+    url: url,
+    json: true
+}, function (error, response, bodyString) {
+    findName = bodyString.indexOf("name");
+    nameInHere = bodyString.substring(findName+7, findName+106);
+    companyName = nameInHere.split("\"")[0];
+    console.log(nameInHere);
 
+    console.log(companyName);
     req = {
         url: "https://api.nytimes.com/svc/search/v2/articlesearch.json",
         qs: {
           'api-key': "b572113326ca44698852b86b199fe673",
-          'q': company,
+          'q': companyName,
           'begin_date':begin,
           'end_date': end,
           'fl': "web_url,snippet,lead_paragraph,pub_date,headline",
@@ -217,7 +228,11 @@ app.get('/getNews', function(req, res){
       }
     }
     res.send(articlePerMonth);
+
+
   });
+})
+
 // app.get('/getNews', function(req, res){
 //   startYear = parseInt(req.query.start.substring(0,4));
 //   startMonth = parseInt(req.query.start.substring(4,6));
