@@ -18,6 +18,7 @@
   "homepage": "https://github.com/gonzalezelias10/StockOverflow#readme",
   "dependencies": {
     "async": "^2.1.4",
+    "await": "^0.2.6",
     "cheerio": "^0.22.0",
     "express": "^4.14.1",
     "google-finance": "^0.1.9",
