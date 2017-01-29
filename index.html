@@ -207,7 +207,7 @@ var inputURL = "https://query.yahooapis.com/v1/public/yql"+
     +"datatables.org%2Falltableswithkeys";
     // Get the data again
     d3.json(inputURL, function(error, data){
-=======
+
  //   var randomCompany = fortunefive[Math.floor(Math.random() * 500)];
     
     var inputURL = "https://query.yahooapis.com/v1/public/yql"+
@@ -221,7 +221,7 @@ var inputURL = "https://query.yahooapis.com/v1/public/yql"+
         // Get the data 
         d3.json(inputURL, function(error, data){
     
->>>>>>> origin/master
+
         data.query.results.quote.forEach(function(d) {
             d.date = parseDate(d.Date);
             d.high = +d.High;
