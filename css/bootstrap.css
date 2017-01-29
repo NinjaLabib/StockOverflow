@@ -344,6 +344,7 @@ template {
   h3 {
     orphans: 3;
     widows: 3;
+    font-size: 30 px; 
   }
   h2,
   h3 {
