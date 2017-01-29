@@ -57,7 +57,7 @@ app.get('/getData', function(req, res){
 //
 // })
 
-app.listen('8081');
+app.listen('5000');
 
 console.log('Magic happens on port 8081');
 
