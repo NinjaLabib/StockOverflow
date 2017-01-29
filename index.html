@@ -48,7 +48,7 @@
     #answer {
     visibility: hidden;
     position:relative;
-       bottom:600px; z-index: -1;
+       bottom:500px; z-index: -1;
     }
 
     #area2 .g {
@@ -60,20 +60,20 @@
         font: 20px Helvetica;
     }
     #news {
-    height: 600px;
-    overflow: scroll;
+    height: 500px;
+    overflow-y: scroll;
     }
     </style>
     <body> 
-    <div style="background-color:#DDE4E8">
+    <div style="background-image: url('img/djTick.jpg')">
     <header>
         
-        <h1><div style="font-family: 'Arsenal', serif; color:#011724" ><b>Complete the Stock Graph! </b></div></h1>
+        <h1><div style="font-family: 'Arsenal', serif; color:white " ><b>Complete the Stock Graph! </b></div></h1>
     </header>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 <!-- set inputs for the query -->    
-<div id="new_input" class="text-center">
+<div id="new_input" class="text-center" style="font-family: 'Arsenal', serif; color:white">
     &nbsp &nbsp
     Stock: <input type="text" name="stock" id="stock" value="IBM" 
     style="width: 70px;">
@@ -99,7 +99,7 @@
     value="Results" 
     onclick="results()" />
 
-    <h2><div id="score" style="font-family: 'Arsenal', serif;" class="text-center"font=size="6">Score: 0</div></h2>
+    <h2><div id="score" style="font-family: 'Arsenal', serif;" class="text-center" >Score: 0</div></h2>
 
 </div>
 </div>
@@ -123,7 +123,7 @@ var start = document.getElementById('start').value;
 var end = document.getElementById('end').value;
 var globalData  = null;
 var globalPoints = null;
-var globalY = 600;
+var globalY = 500;
 var globalX = (window.innerWidth/3)+50;
 var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="
 +stock+"&from="+start+"&to="+end;

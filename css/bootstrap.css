@@ -17,7 +17,8 @@ html {
 
 body {
   margin: 0;
-  overflow: visible;
+  overflow: hidden;
+  background-color: blue:
 }
 
 article,
@@ -394,7 +395,7 @@ body {
   font-weight: normal;
   line-height: 1.5;
   color: #292b2c;
-  background-color: #89A3A7;
+  background-image: : #89A3A7;
 }
 
 [tabindex="-1"]:focus {
