@@ -35,14 +35,20 @@ app.get('/getData', function(req, res){
       'Nov':11, 'Dec':12};
       x = [];
       y = [];
+      max = -1;
+      min = Number.MAX_SAFE_INTEGER;
       for(i = 0; i < quotes.length; i++){
         dateUnparsed = ""+quotes[i].date;
         dateSplit = dateUnparsed.split(" ");
         dateParsed = "" + _.get(months, dateSplit[1]) + "-"
           + dateSplit[2] + "-" + dateSplit[3];
-
-
         close = quotes[i].close;
+        if (close > max) {
+          max = close;
+        }
+        if (close < max) {
+          min = close;
+        }
         refined = {
           x: dateParsed,
           y: close
@@ -54,23 +60,18 @@ app.get('/getData', function(req, res){
 
       }
 
-      // res.send({
-      //   // x:x,
-      //   // y:y,
-      //   high: Math.max.apply(Math,y),
-      //   low: Math.min.apply(Math,y)
-      // });
-      res.send(quotes);
+
+      res.send({
+        quotePairs:quotes,
+        max: max,
+        min:min
+      });
 
   });
 
 })
 
-// app.get('/scrape', function(req, res){
-//
-//
-//
-// })
+
 
 app.listen(port_number);
 
