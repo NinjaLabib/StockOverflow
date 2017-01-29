@@ -108,7 +108,7 @@
         
     var randomCompany = Math.floor(Math.random() * 500 + 1);
     
-    var inputURL = "http://query.yahooapis.com/v1/public/yql"+
+    var inputURL = "https://query.yahooapis.com/v1/public/yql"+
         "?q=select%20*%20from%20yahoo.finance.historicaldata%20"+
         "where%20symbol%20%3D%20%22"
         +stock+"%22%20and%20startDate%20%3D%20%22"
@@ -179,7 +179,7 @@
     var start = document.getElementById('start').value;
     var end = document.getElementById('end').value;
     
-    var inputURL = "http://query.yahooapis.com/v1/public/yql"+
+    var inputURL = "https://query.yahooapis.com/v1/public/yql"+
         "?q=select%20*%20from%20yahoo.finance.historicaldata%20"+
         "where%20symbol%20%3D%20%22"
         +stock+"%22%20and%20startDate%20%3D%20%22"
