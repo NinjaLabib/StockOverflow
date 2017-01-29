@@ -97,16 +97,20 @@
     onclick="results()" />
 </div>
 <h2><div id="score">Score: 0</div></h2>
+
 <div class="row">
-    <div class="col-md-3" id="area1"></div>
-    <div class="col-md-3" id ="fitin">
+
+            <div class="col-md-2" ></div>
+    <div class="col-md-4" id="area1"></div>
+    <div class="col-md-4" id ="fitin">
         <div id = "area2"></div>
         <div id="answer"></div>
     </div>
-        <div class="col-md-6" ></div>
+            <div class="col-md-2" ></div>
+
 </div>
 <!-- load the d3.js library -->    
-<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 var stock = document.getElementById('stock').value;
 var start = document.getElementById('start').value;
@@ -114,7 +118,9 @@ var end = document.getElementById('end').value;
 var globalData  = null;
 var globalPoints = null;
 var globalY = 800;
-var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="+stock+"&from="+start+"&to="+end;
+var globalX = (window.innerWidth/3)+50;
+var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="
++stock+"&from="+start+"&to="+end;
 
 $(function(){
     $.getJSON(bounds, function(data) {
@@ -124,14 +130,15 @@ $(function(){
         firstHalf(true, ymin,ymax);
         linePlot();
         showResults(true, ymin,ymax);
-    });
+    })
 });
 function updateData(){
 var stock = document.getElementById('stock').value;
 var start = document.getElementById('start').value;
 var end = document.getElementById('end').value;
 
-var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="+stock+"&from="+start+"&to="+end;
+var bounds = "https://floating-retreat-69743.herokuapp.com/getBounds?ticker="
++stock+"&from="+start+"&to="+end;
 
 $(function(){
     $.getJSON(bounds, function(data) {
@@ -140,7 +147,7 @@ $(function(){
         var ymax = +data.max;
         firstHalf(false, ymin,ymax);
         showResults(false, ymin,ymax);
-    });
+    })
 });
 }
 
@@ -154,7 +161,7 @@ function results(){
     var minXpoint = globalPoints[0].x;
     var maxXpoint = globalPoints[globalPoints.length-1].x;
     var startDate = new Date(globalData.quotes[Math.floor(globalData.quotes.length/2)].x);
-    console.log(startDate);
+    console.log(startDate)
     startDate = startDate.getTime();
     var endDate = new Date(globalData.quotes[globalData.quotes.length-1].x);
     endDate = endDate.getTime();
@@ -191,7 +198,7 @@ function results(){
 function firstHalf(init, ymin,ymax){
 // Set the dimensions of the graph
 var margin = {top: 30, right: 40, bottom: 30, left: 50},
-    width = 500 - margin.left - margin.right,
+    width = globalX - margin.left - margin.right,
     height = globalY - margin.top - margin.bottom;
 // Parse the date / time
 var parseDate = d3.time.format("%Y-%m-%d").parse;
@@ -215,13 +222,15 @@ var svg = d3.select("#area1")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
-        .attr("transform", "translate("+ margin.left+ "," + margin.top + ")");
+        .attr("transform", "translate(" 
+            + margin.left 
+            + "," + margin.top + ")");
 
 var stock = document.getElementById('stock').value;
 var start = document.getElementById('start').value;
 var middle = document.getElementById('middle').value;
 
-var inputURL = "https://query.yahooapis.com/v1/public/yql"+
+var inputURL = "http://query.yahooapis.com/v1/public/yql"+
     "?q=select%20*%20from%20yahoo.finance.historicaldata%20"+
     "where%20symbol%20%3D%20%22"
     +stock+"%22%20and%20startDate%20%3D%20%22"
@@ -237,7 +246,7 @@ var inputURL = "https://query.yahooapis.com/v1/public/yql"+
         d.high = +d.High;
         d.low = +d.Low;
     });
-    console.log(data.query.results.quote);
+    console.log(data.query.results.quote)
 
     // Scale the range of the data
     x.domain(d3.extent(data.query.results.quote, function(d) {
@@ -291,7 +300,7 @@ var stock = document.getElementById('stock').value;
 var start = document.getElementById('start').value;
 var middle = document.getElementById('middle').value;
 
-var inputURL = "https://query.yahooapis.com/v1/public/yql"+
+var inputURL = "http://query.yahooapis.com/v1/public/yql"+
     "?q=select%20*%20from%20yahoo.finance.historicaldata%20"+
     "where%20symbol%20%3D%20%22"
     +stock+"%22%20and%20startDate%20%3D%20%22"
@@ -346,7 +355,7 @@ var inputURL = "https://query.yahooapis.com/v1/public/yql"+
 }
 }
 function linePlot(){
-    var width = 500;
+    var width = globalX;
     var height = globalY;
     var radius = 4;
     var padding = radius ;//radius * 6;
@@ -369,7 +378,7 @@ function linePlot(){
       return {
         x: spread(d),
         y: Math.floor(Math.random() * (height - 2*padding) + padding)
-      };
+      }
     });
     globalPoints = points;
     var circles = svg2
@@ -396,7 +405,7 @@ function linePlot(){
     function dragHandler() {
       var m = d3.mouse(this);
       var x = m[0];
-      var y = Math.max(padding, Math.min(m[1], height - padding));
+      var y = Math.max(padding, Math.min(m[1], height - padding))
       var range = spread.range();
       var space = spread.rangeBand() / 2;
       for (var i = 0; x > (range[i] + space); i++) {}
@@ -410,7 +419,7 @@ function linePlot(){
 function showResults(init, ymin,ymax){
 // Set the dimensions of the graph
 var margin = {top: 28, right: 40, bottom: 30, left: 40},
-    width = 500 - margin.left - margin.right,
+    width = globalX - margin.left - margin.right,
     height = globalY - margin.top - margin.bottom;
 // Parse the date / time
 var parseDate = d3.time.format("%Y-%m-%d").parse;
@@ -421,7 +430,7 @@ var y = d3.scale.linear().range([height, 0]);
 var xAxis = d3.svg.axis().scale(x)
     .orient("bottom").ticks(6);
 
-var yAxis = d3.svg.axis().scale(y)
+var    yAxis = d3.svg.axis().scale(y)
     .orient("left").ticks(10);
 
 var valueline = d3.svg.line()
@@ -441,7 +450,7 @@ var stock = document.getElementById('stock').value;
 var middle = document.getElementById('middle').value;
 var end = document.getElementById('end').value;
 
-var inputURL2 = "https://query.yahooapis.com/v1/public/yql"+
+var inputURL2 = "http://query.yahooapis.com/v1/public/yql"+
     "?q=select%20*%20from%20yahoo.finance.historicaldata%20"+
     "where%20symbol%20%3D%20%22"
     +stock+"%22%20and%20startDate%20%3D%20%22"
@@ -510,7 +519,7 @@ var stock = document.getElementById('stock').value;
 var middle = document.getElementById('middle').value;
 var end = document.getElementById('end').value;
 
-var inputURL = "https://query.yahooapis.com/v1/public/yql"+
+var inputURL = "http://query.yahooapis.com/v1/public/yql"+
     "?q=select%20*%20from%20yahoo.finance.historicaldata%20"+
     "where%20symbol%20%3D%20%22"
     +stock+"%22%20and%20startDate%20%3D%20%22"
