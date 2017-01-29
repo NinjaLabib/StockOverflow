@@ -68,6 +68,7 @@
     </div>
     <!-- load the d3.js library -->    
     <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="/fortunefive.js"></script>
     <script>
     // Set the dimensions of the graph
     var margin = {top: 30, right: 40, bottom: 30, left: 50},
@@ -104,6 +105,8 @@
     var stock = document.getElementById('stock').value;
     var start = document.getElementById('start').value;
     var end = document.getElementById('end').value;
+        
+    var randomCompany = Math.floor(Math.random() * 500 + 1);
     
     var inputURL = "http://query.yahooapis.com/v1/public/yql"+
         "?q=select%20*%20from%20yahoo.finance.historicaldata%20"+
