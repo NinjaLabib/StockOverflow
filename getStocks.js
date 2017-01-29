@@ -5,8 +5,6 @@ var cheerio = require('cheerio');
 var googleFinance = require('google-finance');
 var _ = require('lodash');
 var async = require('async');
-var await = require('await');
-var XMLHttpRequest = require('xhr2');
 
  app     = express();
 const months = {'Jan':1, 'Feb':2, 'Mar': 3, 'Apr': 4,
