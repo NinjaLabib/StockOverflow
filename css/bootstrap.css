@@ -14,8 +14,8 @@ html {
 
 body {
   margin: 0;
-  //background-image: url("../img/CalvinHobbes.jpg");
   color: #0775BB;
+  background-color: #0775BB;
 }
 
 article,
@@ -344,8 +344,7 @@ body {
   font-weight: normal;
   line-height: 1.5;
   color: #0775BB;
-  //background-image: url("../img/stock-market-chart.jpg");
-  //background-repeat: repeat-x;
+  background-color: #0775BB;
 }
 
 [tabindex="-1"]:focus {
