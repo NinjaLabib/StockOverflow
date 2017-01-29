@@ -14,8 +14,7 @@ html {
 
 body {
   margin: 0;
-  color: #0775BB;
-  background-color: #0775BB;
+  
 }
 
 article,
@@ -343,8 +342,10 @@ body {
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.5;
-  color: #0775BB;
-  background-color: #0775BB;
+  color: #292b2c;
+  background-image: url("../img/stock-market-chart.jpg");
+   background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 
 [tabindex="-1"]:focus {
